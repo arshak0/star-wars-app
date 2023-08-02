@@ -1,0 +1,13 @@
+@import 'src/global/styles.scss';
+
+.content {
+  padding: 20px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 5px gray;
+  border: 1px solid $c-tertiary;
+  border-radius: 15px;
+  background: $c-quaternary;
+}

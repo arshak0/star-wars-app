@@ -1,0 +1,18 @@
+@import 'src/global/styles.scss';
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  flex-grow: initial;
+  box-shadow: 3px 3px gray;
+  border: 1px solid $c-tertiary;
+  border-radius: 15px;
+  height: 200px;
+  width: 200px;
+  background: $c-quaternary;
+}
+
+.spanText {
+  text-wrap: nowrap;
+}
