@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { Input, Typography } from "antd";
 import { Content } from "antd/lib/layout/layout";
 import {useUnit} from "effector-react";
-import { $allData, changeDataEvent } from "../../shared/api/model";
+import { changeDataEvent } from "../../shared/api/model";
+
+import classes from './DataRow.module.scss';
 
 const { Paragraph } = Typography;
 
@@ -30,14 +32,15 @@ export const DataRow = ({type, name, data, id, field }: DataRowProps) => {
 
     return (
         <Content style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-            <Paragraph style={{ width: "100px", margin: '0', textAlign: 'start' }}>{name}:</Paragraph>
-            <Input
-                type={type}
-                defaultValue={data}
-                value={value}
-                onChange={handleChange}
-                style={{ width: '300px' }}
-            />
+            <Paragraph className={classes.paragraph}>{name}:</Paragraph>
+            <div>
+                <Input className={classes.input}
+                    type={type}
+                    defaultValue={data}
+                    value={value}
+                    onChange={handleChange}
+                />
+            </div>
         </Content>
     );
 }

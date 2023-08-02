@@ -3,6 +3,8 @@ import { Input, Typography } from "antd";
 import { Content } from "antd/lib/layout/layout";
 import { getKeyIndex } from "../../shared/lib/utils/allUtils";
 
+import classes from './DataRow.module.scss';
+
 const { Paragraph } = Typography;
 
 type DataRowArrayProps = {
@@ -15,30 +17,24 @@ export const DataRow = ({type, name, data, red }: DataRowArrayProps) => {
 
     return (
         <Content style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-            <Paragraph style={{
-                width: "100px",
-                margin: '0',
-                color: `${red && 'red'}`,
-                textAlign: 'start' }} >
+            <Paragraph  className={classes.paragraph}style={{ color: `${red && 'red'}` }} >
                 {name}:
             </Paragraph>
 
-            <Content style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                 {data?.map((item: string) =>
-                    <Input
+                    <Input className={classes.input}
                         key={getKeyIndex(item)}
                         type={type}
                         defaultValue={item}
-                        style={{ width: '300px' }}
                     />
                 )}
                 {data.length===0 &&
-                    <Input
+                    <Input className={classes.input}
                         type={type}
-                        style={{ width: '300px' }}
                     />
                 }
-            </Content>
+            </div>
 
         </Content>
     );

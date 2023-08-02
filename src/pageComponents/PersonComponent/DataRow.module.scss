@@ -1,0 +1,19 @@
+.paragraph {
+  width: 120px;
+  margin: 0;
+  text-align: start;
+  @media (max-width: 568px) {
+    width: 85px;
+  }
+}
+
+.input {
+  max-width: 300px;
+  @media (min-width: 768px) {
+    width: 300px;
+  }
+  @media (min-width: 1024px) {
+    width: 600px;
+    max-width: 600px;
+  }
+}
