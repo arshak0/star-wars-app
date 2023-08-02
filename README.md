@@ -1,14 +1,14 @@
 ![image3](https://github.com/arshak0/star-wars-app/blob/master/public/screenshots%20from%20app/screenshot.gif)
 # Getting Started with Create React App
 
-****USE NODE VERSION 16.16.0****
+****USE NODE VERSION 18.12.0****
 
 ## Commands to launch the program
 
 Firstly, install and use the node version 16.16.0
 The example of how to do that on the macOS
-### `nvm install 16.16.0`
-### `nvm use 16.16.0`
+### `nvm install 18.12.0`
+### `nvm use 18.12.0`
 If you don't have nvm, please, install it via homebrew, for instance, on the macOS
 
 Then install all packages
