@@ -43,3 +43,4 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ![image1](https://github.com/arshak0/star-wars-app/blob/master/public/screenshots%20from%20app/screenshot_1.png)
 ![image2](https://github.com/arshak0/star-wars-app/blob/master/public/screenshots%20from%20app/screenshot_2.png)
+![image3](https://github.com/arshak0/star-wars-app/blob/master/public/screenshots%20from%20app/screenshot.gif)
