@@ -1,5 +1,30 @@
+.header {
+  display: flex;
+  height: 100px;
+  align-items: center;
+  @media (max-width: 768px) {
+    justify-content: space-between;
+  }
+}
+
 .headline {
   transform: translateX(-50%);
+  text-align: end;
+  @media (max-width: 1024px) {
+    transform: none;
+  }
+}
+
+.headline h2 {
+  @media (max-width: 568px) {
+    font-size: 20px;
+  }
+}
+
+.breadcrumb {
+  @media (max-width: 1024px) {
+    display: none;
+  }
 }
 
 .breadcrumb li a {

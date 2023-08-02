@@ -68,29 +68,33 @@ export const PeopleList = () => {
 
     return (
         <>
-            <Content style={{ padding: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
+            <Content className={classes.top}>
                 <Typography>
-                    <Title style={{margin: 0}}>People List</Title>
+                    <Title level={2} style={{margin: 0}}>People List</Title>
                 </Typography>
-                <Input.Search
+                <Input.Search className={classes.search}
                     placeholder="Type and press the button"
                     value={searchValue}
                     onChange={onSearchChange}
                     onSearch={onSearch}
                     enterButton
-                    style={{ width: "300px" }}
+                    style={{ width: "250px" }}
                 />
             </Content>
-            {!isLoading && <ul className={classes.cardLayout}>
-                {data?.map((item: Person) =>
-                    <PersonCard key={getPersonId(item?.url)} personId={getPersonId(item?.url)} data={item}/>
-                )}
-                {data?.length===0 &&
-                    <Typography>
-                        <Text>No data with your search parameters. Please search something else</Text>
-                    </Typography>
-                }
-            </ul>}
+            {!isLoading &&
+                <div className={classes.cardLayoutWrapper}>
+                    <ul className={classes.cardLayout}>
+                        {data?.map((item: Person) =>
+                            <PersonCard key={getPersonId(item?.url)} personId={getPersonId(item?.url)} data={item}/>
+                        )}
+                        {data?.length===0 &&
+                            <Typography>
+                                <Text>No data with your search parameters. Please search something else</Text>
+                            </Typography>
+                        }
+                    </ul>
+                </div>
+            }
             {isLoading &&
                 <Content style={{ padding: '10px', display: 'flex', justifyContent: 'center' }}>
                     <Spin />

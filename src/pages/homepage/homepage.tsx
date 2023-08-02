@@ -23,14 +23,14 @@ const breadcrumbItems = [
 export const HomePage = () => {
     return (
         <Layout className="layout" style={{ minHeight: '100vh' }}>
-            <Header style={{ display: 'flex', height: '100px', alignItems: 'center' }}>
+            <Header className={classes.header}>
                 <Breadcrumb
                     className={classes.breadcrumb}
                     items={breadcrumbItems}
                     style={{ alignSelf: 'center', flexBasis: '50%' }}
                 />
                 <Typography className={classes.headline}>
-                    <Title style={{ color: 'white', margin: 0 }}>Star Wars Characters App</Title>
+                    <Title level={2} style={{ color: 'white', margin: 0 }}>Star Wars Characters App</Title>
                 </Typography>
             </Header>
             <Content style={{ padding: '50px' }}>
