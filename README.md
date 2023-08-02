@@ -38,3 +38,8 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 - Pagination
 - Person page with editing of the fields
 - Local state for all the data to show the relevant data after editing the data on the local
+
+# Screenshots from the program
+
+![image1](https://github.com/arshak0/star-wars-app/blob/master/public/screenshots%20from%20app/screenshot_1.png)
+![image2](https://github.com/arshak0/star-wars-app/blob/master/public/screenshots%20from%20app/screenshot_2.png)
