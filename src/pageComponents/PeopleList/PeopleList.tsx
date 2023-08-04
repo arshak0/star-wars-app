@@ -6,7 +6,7 @@ import classes from './PeopleList.module.scss';
 import { Content } from "antd/lib/layout/layout";
 import { useFetchPeople } from "../../shared/lib/hooks/useFetch";
 import { Person } from "../../shared/lib/types/Person";
-import { getDataFromStore, getPaginatedData, getPersonId, getSearchData } from "../../shared/lib/utils/allUtils";
+import { getDataFromStore, getPaginatedData, getPersonId } from "../../shared/lib/utils/allUtils";
 import { useUnit } from "effector-react";
 import { $allData, addDataEvent } from "../../shared/api/model";
 
@@ -45,6 +45,7 @@ export const PeopleList = () => {
     };
 
     const onSearch = (value: string) => {
+        setPaginationValue(1)
         if (value!=='') setIsSearch(true)
         else setIsSearch(false)
         setFetchUrl(`${API_URL}/people/?search=${value}&page=1`);
