@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Pagination, Input, Spin, Typography } from 'antd';
-import { API_URL } from "../../shared/lib/constants";
+import {allDataLength, API_URL} from "../../shared/lib/constants";
 import PersonCard from "../../features/PersonCard/PersonCard";
 import classes from './PeopleList.module.scss';
 import { Content } from "antd/lib/layout/layout";
@@ -19,6 +19,7 @@ export const PeopleList = () => {
     });
 
     const [searchValue, setSearchValue] = useState<string>("");
+    const [searchTotal, setSearchTotal] = useState<number>(allDataLength);
     const [paginationValue, setPaginationValue] = useState<number>(1);
     const [fetchUrl, setFetchUrl] = useState<string>(`${API_URL}/people/?page=1`);
     const { fetchData, error, isLoading } = useFetchPeople(fetchUrl);
@@ -32,9 +33,16 @@ export const PeopleList = () => {
             })
         }
         if (searchValue) {
+            if ( getSearchData(fetchData, allData)?.length === 0 ) {
+                setSearchTotal(0)
+            }
+            else if ( getSearchData(fetchData, allData)?.length ) {
+                setSearchTotal( getSearchData(fetchData, allData)?.length || 0 )
+            }
             setData(getSearchData(fetchData, allData))
         }
         else {
+            setSearchTotal(allDataLength)
             setData(getDataFromStore( fetchData, allData) )
         }
     },[ fetchData ])
@@ -101,7 +109,7 @@ export const PeopleList = () => {
                 </Content>
             }
             <Content style={{margin: '40px'}}>
-                <Pagination onChange={handlePaginationClick} defaultCurrent={paginationValue} showSizeChanger={false} total={82} />
+                <Pagination onChange={handlePaginationClick} defaultCurrent={paginationValue} showSizeChanger={false} total={searchTotal} />
             </Content>
         </>
     );
