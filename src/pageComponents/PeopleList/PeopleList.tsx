@@ -37,7 +37,7 @@ export const PeopleList = () => {
             setData( fetchData )
         }
         else {
-            setData(getDataFromStore( fetchData, allData) )
+            setData( fetchData )
         }
     },[ fetchData ])
 
@@ -59,11 +59,7 @@ export const PeopleList = () => {
         if (!isSearch) {
             setSearchValue('')
             setPaginationValue(value)
-            if (!allData?.pages.includes(value)) {
-                setFetchUrl(`${API_URL}/people/?page=${value}`);
-            } else {
-                setData(getPaginatedData(value, allData))
-            }
+            setFetchUrl(`${API_URL}/people/?page=${value}`);
         } else {
             setPaginationValue(value);
             setFetchUrl(`${API_URL}/people/?search=${searchValue}&page=${value}`);
