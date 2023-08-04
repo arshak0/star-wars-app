@@ -3,7 +3,8 @@ import type { Person } from "../../lib/types/Person";
 export const useFetchPeople = (url: string) => {
     const [fetchData, setFetchData] = useState<Person[]>();
     const [error, setError] = useState();
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [dataCount, setDataCount] = useState<number>();
 
     useEffect(() => {
         setIsLoading(true);
@@ -11,12 +12,13 @@ export const useFetchPeople = (url: string) => {
             .then(response => response.json())
             .then(data => {
                 setFetchData (data.results)
+                setDataCount(data.count)
             })
             .catch(setError)
             .finally(() => setIsLoading(false));
     }, [url]);
 
-    return { fetchData, error, isLoading };
+    return { fetchData, error, isLoading, dataCount };
 };
 
 export const useFetchPerson = (url: string) => {
