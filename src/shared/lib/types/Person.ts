@@ -1,5 +1,4 @@
 export interface Person {
-    [key: string]: any;
     name: string;
     height: string;
     mass: string;
@@ -16,7 +15,8 @@ export interface Person {
     created: string;
     edited: string;
     url: string;
-    id?: number;
+    id: number;
+    [key: string]: number | string | string[];
 }
 
 export type AllData = {
