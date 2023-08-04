@@ -1,3 +1,5 @@
+@import 'src/global/styles.scss';
+
 .header {
   display: flex;
   height: 100px;
@@ -29,4 +31,8 @@
 
 .breadcrumb li a {
   color: white;
+}
+
+.breadcrumb li a:hover {
+  color: $c-secondary;
 }
