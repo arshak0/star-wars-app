@@ -8,14 +8,15 @@ import { useFetchPeople } from "../../shared/lib/hooks/useFetch";
 import { Person } from "../../shared/lib/types/Person";
 import { getDataFromStore, getPaginatedData, getPersonId } from "../../shared/lib/utils/allUtils";
 import { useUnit } from "effector-react";
-import { $allData, addDataEvent } from "../../shared/api/model";
+import { $allData, addDataEvent, resetAllDataEvent } from "../../shared/api/model";
 
 const { Title, Text } = Typography;
 
 export const PeopleList = () => {
-    const { allData, addData } = useUnit({
+    const { allData, addData, resetAllData } = useUnit({
         allData: $allData,
-        addData: addDataEvent
+        addData: addDataEvent,
+        resetAllData: resetAllDataEvent
     });
 
     const [searchValue, setSearchValue] = useState<string>("");
@@ -46,7 +47,10 @@ export const PeopleList = () => {
 
     const onSearch = (value: string) => {
         setPaginationValue(1)
-        if (value!=='') setIsSearch(true)
+        if (value!=='') {
+            setIsSearch(true)
+            resetAllData();
+        }
         else setIsSearch(false)
         setFetchUrl(`${API_URL}/people/?search=${value}&page=1`);
     };

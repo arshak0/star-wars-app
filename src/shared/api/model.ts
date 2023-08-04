@@ -4,6 +4,7 @@ import { getPersonId } from "../lib/utils/allUtils";
 
 export const addDataEvent = createEvent<AddData>();
 export const changeDataEvent = createEvent<ChangeData>();
+export const resetAllDataEvent = createEvent();
 export const $allData = createStore<AllData | null>(null)
     .on(addDataEvent, (store: AllData | null, { page, data }) => {
         let newStore = store ? {...store} : {ids: [], data: [], pages: []}
@@ -36,4 +37,5 @@ export const $allData = createStore<AllData | null>(null)
             person[field]=value
         }
         return newStore
-    });
+    })
+    .reset(resetAllDataEvent);;
