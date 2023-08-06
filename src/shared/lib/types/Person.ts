@@ -21,12 +21,6 @@ export interface Person {
 
 export type AllData = {
     ids: number[];
-    pages: number[];
-    data: Person[];
-}
-
-export type AddData = {
-    page: number;
     data: Person[];
 }
 

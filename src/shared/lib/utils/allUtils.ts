@@ -12,6 +12,17 @@ export const getPageId = (params: string | undefined) => {
     return params ? Number(params.replace('id=','')) : 0;
 };
 
+export const mapData = (fetchData: Person[], allData: AllData | null) => {
+    return fetchData.map(function(item) {
+        if ( allData?.ids.includes( getPersonId(item.url) ) ) {
+            return allData.data[ allData.ids.indexOf( getPersonId(item.url) ) ]
+        }
+        return item
+    });
+}
+
+
+
 export const getSearchData = (fetchData: Person[] | undefined, allData: AllData | null) => {
     let allSearchIds = fetchData ? fetchData?.map((item) => item.name) : []
     return allData?.data.filter((item) => {
@@ -19,14 +30,7 @@ export const getSearchData = (fetchData: Person[] | undefined, allData: AllData 
     });
 }
 
-export const getPaginatedData = (value: number, allData: AllData) => {
-    let minValue = (value-1)*10+1;
-    let maxValue = (value-1)*10+10;
-    return allData.data.filter((item) => {
-        return item?.id ? item.id >= minValue && item.id <= maxValue : false
-    });
-}
-
+/*Don't need the getDataFromStore function anymore*/
 export const getDataFromStore = ( fetchData: Person[] | undefined, allData: AllData | null) => {
     if (fetchData && allData) {
         let newData=[...fetchData]

@@ -6,17 +6,16 @@ import classes from './PeopleList.module.scss';
 import { Content } from "antd/lib/layout/layout";
 import { useFetchPeople } from "../../shared/lib/hooks/useFetch";
 import { Person } from "../../shared/lib/types/Person";
-import { getDataFromStore, getPaginatedData, getPersonId } from "../../shared/lib/utils/allUtils";
+import { getPersonId, mapData } from "../../shared/lib/utils/allUtils";
 import { useUnit } from "effector-react";
-import { $allData, addDataEvent, resetAllDataEvent } from "../../shared/api/model";
+import { $allData, addDataEvent } from "../../shared/api/model";
 
 const { Title, Text } = Typography;
 
 export const PeopleList = () => {
-    const { allData, addData, resetAllData } = useUnit({
+    const { allData, addData } = useUnit({
         allData: $allData,
-        addData: addDataEvent,
-        resetAllData: resetAllDataEvent
+        addData: addDataEvent
     });
 
     const [searchValue, setSearchValue] = useState<string>("");
@@ -28,16 +27,8 @@ export const PeopleList = () => {
 
     useEffect(()=> {
         if ( fetchData ) {
-            addData({
-                page: paginationValue || 1,
-                data: fetchData
-            })
-        }
-        if (searchValue) {
-            setData( fetchData )
-        }
-        else {
-            setData( fetchData )
+            addData( fetchData );
+            setData( mapData( fetchData, allData ) );
         }
     },[ fetchData ])
 
@@ -47,23 +38,17 @@ export const PeopleList = () => {
 
     const onSearch = (value: string) => {
         setPaginationValue(1)
-        if (value!=='') {
-            setIsSearch(true)
-            resetAllData();
+        if (value!=='') setIsSearch(true)
+        else {
+            setIsSearch(false)
+            setSearchValue('')
         }
-        else setIsSearch(false)
         setFetchUrl(`${API_URL}/people/?search=${value}&page=1`);
     };
 
     const handlePaginationClick = (value: number) => {
-        if (!isSearch) {
-            setSearchValue('')
-            setPaginationValue(value)
-            setFetchUrl(`${API_URL}/people/?page=${value}`);
-        } else {
-            setPaginationValue(value);
-            setFetchUrl(`${API_URL}/people/?search=${searchValue}&page=${value}`);
-        }
+        setPaginationValue(value);
+        setFetchUrl(`${API_URL}/people/?${!isSearch ? '' : 'search='+searchValue+'&'}page=${value}`);
     }
 
     if (error) {
