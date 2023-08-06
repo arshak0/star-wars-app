@@ -19,7 +19,6 @@ export const PeopleList = () => {
     });
 
     const [searchValue, setSearchValue] = useState<string>("");
-    const [isSearch, setIsSearch] = useState<boolean>();
     const [paginationValue, setPaginationValue] = useState<number>(1);
     const [fetchUrl, setFetchUrl] = useState<string>(`${API_URL}/people/?page=1`);
     const { fetchData, error, isLoading, dataCount } = useFetchPeople(fetchUrl);
@@ -38,17 +37,12 @@ export const PeopleList = () => {
 
     const onSearch = (value: string) => {
         setPaginationValue(1)
-        if (value!=='') setIsSearch(true)
-        else {
-            setIsSearch(false)
-            setSearchValue('')
-        }
         setFetchUrl(`${API_URL}/people/?search=${value}&page=1`);
     };
 
     const handlePaginationClick = (value: number) => {
         setPaginationValue(value);
-        setFetchUrl(`${API_URL}/people/?${!isSearch ? '' : 'search='+searchValue+'&'}page=${value}`);
+        setFetchUrl(`${API_URL}/people/?search=${searchValue}&page=${value}`);
     }
 
     if (error) {
