@@ -21,16 +21,7 @@ export const mapData = (fetchData: Person[], allData: AllData | null) => {
     });
 }
 
-
-
-export const getSearchData = (fetchData: Person[] | undefined, allData: AllData | null) => {
-    let allSearchIds = fetchData ? fetchData?.map((item) => item.name) : []
-    return allData?.data.filter((item) => {
-        return allSearchIds.includes(item.name)
-    });
-}
-
-/*Don't need the getDataFromStore function anymore*/
+/*Don't need the getDataFromStore and getSearchData functions anymore*/
 export const getDataFromStore = ( fetchData: Person[] | undefined, allData: AllData | null) => {
     if (fetchData && allData) {
         let newData=[...fetchData]
@@ -41,4 +32,11 @@ export const getDataFromStore = ( fetchData: Person[] | undefined, allData: AllD
         }
         return newData
     } else return fetchData
+}
+
+export const getSearchData = (fetchData: Person[] | undefined, allData: AllData | null) => {
+    let allSearchIds = fetchData ? fetchData?.map((item) => item.name) : []
+    return allData?.data.filter((item) => {
+        return allSearchIds.includes(item.name)
+    });
 }
