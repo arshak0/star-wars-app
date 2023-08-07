@@ -36,7 +36,7 @@ export const PeopleList = () => {
     };
 
     const onSearch = (value: string) => {
-        setPaginationValue(1)
+        setPaginationValue(1);
         setFetchUrl(`${API_URL}/people/?search=${value}&page=1`);
     };
 
