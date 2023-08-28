@@ -8,14 +8,16 @@ import { useFetchPeople } from "../../shared/lib/hooks/useFetch";
 import { Person } from "../../shared/lib/types/Person";
 import { getPersonId, mapData } from "../../shared/lib/utils/allUtils";
 import { useUnit } from "effector-react";
-import { $allData, addDataEvent } from "../../shared/api/model";
+import {$allData, $peopleData, addDataEvent, fetchPeopleDataFx} from "../../shared/api/model";
 
 const { Title, Text } = Typography;
 
 export const PeopleList = () => {
-    const { allData, addData } = useUnit({
+    const { allData, peopleData, addData, fetchPeopleData } = useUnit({
         allData: $allData,
-        addData: addDataEvent
+        peopleData: $peopleData,
+        addData: addDataEvent,
+        fetchPeopleData: fetchPeopleDataFx
     });
 
     const [searchValue, setSearchValue] = useState<string>("");
@@ -24,12 +26,18 @@ export const PeopleList = () => {
     const { fetchData, error, isLoading, dataCount } = useFetchPeople(fetchUrl);
     const [data, setData] = useState<Person[]>()
 
+    fetchPeopleData(`${API_URL}/people/?page=1`)
+
     useEffect(()=> {
         if ( fetchData ) {
             addData( fetchData );
             setData( mapData( fetchData, allData ) );
         }
     },[ fetchData ])
+
+    useEffect(()=> {
+        console.log(peopleData)
+    })
 
     const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
@@ -68,13 +76,14 @@ export const PeopleList = () => {
                     style={{ width: "250px" }}
                 />
             </Content>
+
             {!isLoading &&
                 <div className={classes.cardLayoutWrapper}>
                     <ul className={classes.cardLayout}>
-                        {data?.map((item: Person) =>
+                        {peopleData?.map((item: Person) =>
                             <PersonCard key={getPersonId(item?.url)} personId={getPersonId(item?.url)} data={item}/>
                         )}
-                        {data?.length===0 &&
+                        {peopleData?.length===0 &&
                             <Typography>
                                 <Text>No data with your search parameters. Please search something else</Text>
                             </Typography>

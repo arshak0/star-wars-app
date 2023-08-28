@@ -1,4 +1,4 @@
-import { createStore, createEvent } from 'effector';
+import {createStore, createEvent, sample, createEffect} from 'effector';
 import type {AllData, ChangeData, Person } from "../lib/types/Person";
 import { getPersonId } from "../lib/utils/allUtils";
 
@@ -33,4 +33,42 @@ export const $allData = createStore<AllData | null>(null)
         }
         return newStore
     })
-    .reset(resetAllDataEvent);;
+    .reset(resetAllDataEvent);
+
+export const $peopleData = createStore<Person[] | null>(null)
+
+export const fetchPeopleDataFx = createEffect((url: string) =>
+    fetch(url)
+        .then(response => response.json())
+        .then(data => data?.results)
+);
+
+sample({
+    clock: fetchPeopleDataFx.doneData,
+    fn: (data: Person[]) => data,
+    target: $peopleData
+});
+
+// return { fetchData, error, isLoading, dataCount };
+
+/*
+export const fetchPersonDataEvent = createEvent<string>();
+
+export const $personData = createStore<Person | null>(null)
+    .on(fetchPersonDataEvent, (store: AllData | null, url ) => {
+        let newStore = store ? {...store} : {ids: [], data: []}
+        for ( let i=0; i<data.length; i++ ) {
+            let id = getPersonId(data[i].url)
+            data[i].id=id;
+            if ( store && store.ids.includes(id) ) {
+                break;
+            }
+            newStore.ids.push(id)
+            newStore.data.push(data[i])
+        }
+
+        newStore.ids.sort((a,b) => a-b)
+        newStore.data.sort((a,b) => getPersonId(a.url)-getPersonId(b.url) )
+        return newStore
+    })
+ */
